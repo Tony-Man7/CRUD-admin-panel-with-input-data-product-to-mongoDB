@@ -1,0 +1,17 @@
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.truncate {
+    max-width: 150px; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

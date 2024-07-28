@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Admin</title>
+    <!-- plugins:css -->
+     <!-- <link rel="stylesheet" href="../public/css/custom.css"> -->
+    <link rel="stylesheet" href="vendors/feather/feather.css" />
+    <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css" />
+    <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css" />
+    <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css" />
+    <link rel="stylesheet" type="text/css" href="js/select.dataTables.min.css" />
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="css/vertical-layout-light/style.css" />
+    <!-- endinject -->
+    <link rel="shortcut icon" href="images/favicon.png" />
+  </head>
+
+  <style>
+      td {
+          border-right: 1px solid #ddd;
+          padding: 8px;
+  
+      }
+
+      .truncate {
+          max-width: 400px; 
+          white-space: nowrap;
+          overflow-x: auto;
+          /* text-overflow: ellipsis; */
+      }
+      .table td img {
+        border-radius: unset;
+      }
+      .page-item:first-child .page-link,
+      .page-item:last-child .page-link {
+        border-radius: unset; 
+      }
+      .card-body-product {
+        overflow: hidden;
+        transition: transform 0.5s ease-out, padding 0.5s ease-out;
+        transform: scaleY(0); 
+        transform-origin: top;
+        padding: 0; 
+        max-height: 0; 
+      }
+
+      .card-body-product.show {
+          transform: scaleY(1); 
+          padding: 1.25rem 1.25rem;
+          max-height: 100%; 
+      }
+
+  </style>
+  <body>
+      <div class="container-scroller">
+        <%- include('partials/navbar', { admin: admin }); %>
+        <div class="container-fluid page-body-wrapper">
+          <%- include('partials/sidebar', { admin: admin }); %>
+          
+          <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="col-md-8">
+                  <div class="card">
+                    <div class="card-header card-body d-flex align-items-center justify-content-between bg-transparent" role="button" id="toggleButton">
+                      <h4 class="card-title m-0">Add Product</h4>
+                      <i class="fa-solid fa-plus"></i>
+                    </div>
+                      <div class="card-body-product" id="collapseContent">
+                        <form action="/product-form" method="POST" enctype="multipart/form-data">
+                          <div class="form-group">
+                              <label for="productName" class="form-label">Product Name</label>
+                              <input type="text" class="form-control" id="productName" name="name" required>
+                          </div>
+                          <div class="form-group">
+                              <label for="productPrice" class="form-label">Product Price</label>
+                              <input type="number" class="form-control" id="productPrice" name="price" step="0.01" required>
+                          </div>
+                          <div class="form-group">
+                              <label for="productDescription" class="form-label">Product Description</label>
+                              <textarea class="form-control" id="productDescription" name="description" rows="3" required></textarea>
+                          </div>
+                          <div class="form-group">
+                              <label for="category" class="form-label">Category</label>
+                              <select class="form-control" id="category" name="category" required>
+                                  <option value="">Select a category</option>
+                                  <option value="Food">Food</option>
+                                  <option value="Electronics">Electronics</option>
+                                  <option value="Clothing">Clothing</option>
+                                  <option value="Pet Care">Pet Care</option>
+                                  <option value="Floral & Tools">Floral & Tools</option>
+
+                              </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="image">Product Image</label>
+                            <input type="file" id="image" name="image" class="form-control-file">
+                          </div>
+                          <button type="submit" class="btn btn-primary">Add Product</button>
+                        </form>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+            <!-- Table to display products -->
+            <div class="content-wrapper">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Product List</h4>
+                    <table class="table table-striped">
+                      <thead>
+                          <tr>
+                              <th>Name</th>
+                              <th>Price</th>
+                              <th>Description</th>
+                              <th>Category</th>
+                              <th>Image</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <% products.forEach(product => { %>
+                              <tr>
+                                  <td class="truncate"><%= product.name %></td>
+                                  <td class="truncate"><%= product.price %></td>
+                                  <td class="truncate"><%= product.description %></td>
+                                  <td class="truncate"><%= product.category %></td>
+                                  <td class="truncate">
+                                    <% if (product.image) { %>
+                                      <img src="<%= product.image %>" alt="Product Image" style="width: 75px; height: auto;">
+                                    <% } else { %>
+                                        No image
+                                    <% } %>
+                                  </td>
+                                  <td>
+                                    <form action="/delete-product/<%= product._id %>" method="POST" style="display: inline;">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                  </td>
+                                  <td style="border: 1px solid #ddd; padding: 8px;">
+                                    <a href="/edit-product/<%= product._id %>" class="btn btn-primary" >Edit</a>
+                                  </td>                                
+                              </tr>
+                          <% }) %>
+                      </tbody>
+                  </table>
+                  <div class="pagination d-flex justify-content-end mt-2">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <% if (currentPage > 1) { %>
+                                <a class="page-link" href="/product-form?page=<%= currentPage - 1 %>&limit=<%= limit %>" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            <% } %>
+                        </li>
+                        <% for (let i = 1; i <= totalPages; i++) { %>
+                            <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                                <a class="page-link" href="/product-form?page=<%= i %>&limit=<%= limit %>"><%= i %></a>
+                            </li>
+                        <% } %>
+                        <li class="page-item">
+                            <% if (currentPage < totalPages) { %>
+                                <a class="page-link" href="/product-form?page=<%= currentPage + 1 %>&limit=<%= limit %>" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            <% } %>
+                        </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%- include('partials/footer'); %>
+        </div>
+      </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggleButton = document.getElementById('toggleButton');
+            var collapseContent = document.getElementById('collapseContent');
+            
+            toggleButton.addEventListener('click', function() {
+                if (collapseContent.classList.contains('show')) {
+                    collapseContent.classList.remove('show');
+                } else {
+                    collapseContent.classList.add('show');
+                }
+            });
+        });
+      </script>
+    
+      
+      <script src="vendors/js/vendor.bundle.base.js"></script>
+      <!-- endinject -->
+      <!-- Plugin js for this page -->
+      <script src="vendors/chart.js/Chart.min.js"></script>
+      <script src="vendors/datatables.net/jquery.dataTables.js"></script>
+      <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+      <script src="js/dataTables.select.min.js"></script>
+  </body>
+</html>

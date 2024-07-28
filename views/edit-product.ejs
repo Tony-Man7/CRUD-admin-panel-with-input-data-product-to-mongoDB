@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="vendors/feather/feather.css" />
+    <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css" />
+    <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css" />
+    <link rel="stylesheet" type="text/css" href="js/select.dataTables.min.css" />
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="css/vertical-layout-light/style.css" />
+    <!-- endinject -->
+    <link rel="shortcut icon" href="images/favicon.png" />
+  </head>
+  <body>
+    <div class="container-scroller">
+      <%- include('partials/navbar', { admin: admin }); %>
+      <div class="container-fluid page-body-wrapper">
+        <%- include('partials/sidebar', { admin: admin }); %>
+
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Edit Product</h4>
+
+                    <form action="/update-product/<%= product._id %>" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="productName">Product Name</label>
+                            <input type="text" id="productName" name="name" class="form-control" value="<%= product.name %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice">Product Price</label>
+                            <input type="number" id="productPrice" name="price" class="form-control" step="0.01" value="<%= product.price %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productDescription">Product Description</label>
+                            <textarea id="productDescription" name="description" class="form-control" rows="3" required><%= product.description %></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <input type="text" id="category" name="category" class="form-control" value="<%= product.category %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Product Image</label>
+                            <input type="file" id="image" name="image" class="form-control-file">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Product</button>
+                    </form>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+          <%- include('partials/footer'); %>
+        </div>
+      </div>
+    </div>
+    <script src="vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="vendors/chart.js/Chart.min.js"></script>
+    <script src="vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <script src="js/dataTables.select.min.js"></script>
+</html>

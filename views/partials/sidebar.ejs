@@ -1,0 +1,102 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard">
+                <i class="icon-grid menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/profile">
+                <i class="fa-solid fa-user menu-icon"></i>
+                <span class="menu-title">Profile</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/manage-users">
+                <i class="fa-regular fa-user-group menu-icon"></i>
+                <span class="menu-title">Manage Users</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#transactions" aria-expanded="false" aria-controls="transactions">
+                <i class="fa-regular fa-file-lines menu-icon"></i>
+                <span class="menu-title">Transactions</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="transactions">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/view-transaction">View Transactions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sync-transaction">Sync Transactions</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#refunds" aria-expanded="false" aria-controls="refunds">
+                <i class="fa-solid fa-face-frown-open menu-icon"></i>
+                <span class="menu-title">Refunds</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="refunds">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/tables/basic-table.html">View Refunds</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#chargebacks" aria-expanded="false" aria-controls="chargebacks">
+                <i class="fa-solid fa-file-invoice-dollar menu-icon"></i>
+                <span class="menu-title">Chargebacks</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#commissions" aria-expanded="false" aria-controls="commissions">
+                <i class="fa-solid fa-dollar-sign menu-icon"></i>
+                <span class="menu-title">Commissions</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="commissions">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/summary-report"> Summary Report </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#customers" aria-expanded="false" aria-controls="customers">
+                <i class="fa-solid fa-user-tag menu-icon"></i>
+                <span class="menu-title">Customers</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#product-form" aria-expanded="false" aria-controls="product-form">
+                <i class="fa-solid fa-cart-shopping menu-icon"></i>
+                <span class="menu-title">Product</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="product-form">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/product-form"> Add Product </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/all-products"> View Products </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/approval-rates">
+                <i class="fa-solid fa-percent menu-icon"></i>
+                <span class="menu-title">Approval Rates</span>
+            </a>
+        </li>
+    </ul>
+</nav>
